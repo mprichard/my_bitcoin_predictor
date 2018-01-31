@@ -1,0 +1,8 @@
+project_token: 43ad0125500eac2162ef0a69
+name: my_BC_predictor
+language: python
+entrypoint: main.py
+resources:
+  limits:
+    cpu: 6
+    memory: 2Gi
