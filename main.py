@@ -49,7 +49,7 @@ print("Validating a single record:", flush=True)
 print(gtrends_json['data'][0], flush=True)
 
 # Convert to pandas df
-gtrends = pd.DataFrame.from_records(gtrends_json['data'])    .pivot(index='date', values='interest', columns='keyword')
+gtrends = pd.DataFrame.from_records(gtrends_json['data']).pivot(index='date', values='interest', columns='keyword')
 
 # Set proper date format
 gtrends.index = pd.to_datetime(gtrends.index)
