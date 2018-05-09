@@ -49,7 +49,18 @@ print("Validating a single record:", flush=True)
 print(gtrends_json['data'][0], flush=True)
 
 # Convert to pandas df
-gtrends = pd.DataFrame.from_records(gtrends_json['data']).pivot(index='date', values='interest', columns='keyword')
+gtrends = pd.DataFrame.from_records(gtrends_json['data'])\
+    .pivot(index='date', values='interest', columns='keyword')
+
+# Deal with potential nans
+for col in gtrends.columns:
+    if 'NaN' in gtrends[col].values:
+        gtrends[col].replace({'NaN': None}, inplace=True)
+    else:
+        continue
+
+# If there are nans, fill using pad method
+gtrends.fillna(method='pad', inplace=True)
 
 # Set proper date format
 gtrends.index = pd.to_datetime(gtrends.index)
@@ -172,7 +183,7 @@ hidden = model.init_hidden()
 
 # Train the model on 500 epochs
 # Ideally this number is tuned precisely
-NUM_EPOCHS = 85
+NUM_EPOCHS = 50 
 for i in range(NUM_EPOCHS):
     def closure():
         model.zero_grad()
