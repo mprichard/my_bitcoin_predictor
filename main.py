@@ -183,7 +183,7 @@ hidden = model.init_hidden()
 
 # Train the model on 500 epochs
 # Ideally this number is tuned precisely
-NUM_EPOCHS = 80 
+NUM_EPOCHS = 75 
 for i in range(NUM_EPOCHS):
     def closure():
         model.zero_grad()
