@@ -13,7 +13,6 @@ import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
-
 # ## Data Prep
 # Specify what data to use from quandl
 # Here we grab bitcoin prices & market data
@@ -120,7 +119,6 @@ bitcoin_x = df_scaled.drop(['close_price'], axis=1)
 # Predict on the last day
 last_day = max(bitcoin_x.index)
 
-
 # ## Recurrent Neural Network Model
 # [PyTorch](http://pytorch.org) is a wonderful framnework for deep learning 
 # since it handles backpropgation automatically.
@@ -132,12 +130,10 @@ x_pred = torch.autograd.Variable(
 batch_size = x_train.size()[0]
 input_size = len(bitcoin_x.columns)
 
-
 y_train = torch.autograd.Variable(
     torch.from_numpy(bitcoin_y.loc[:last_day - 1].as_matrix()).float(), requires_grad=False)
 y_pred = torch.autograd.Variable(
     torch.from_numpy(bitcoin_y.loc[last_day:].as_matrix()).float(), requires_grad=False)
-
 
 class CryptoNet(torch.nn.Module):
 
@@ -183,7 +179,7 @@ hidden = model.init_hidden()
 
 # Train the model on 500 epochs
 # Ideally this number is tuned precisely
-NUM_EPOCHS = 75 
+NUM_EPOCHS = 100 
 for i in range(NUM_EPOCHS):
     def closure():
         model.zero_grad()
